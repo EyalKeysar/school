@@ -1,0 +1,35 @@
+import math
+
+def janwaljan():
+    number = get_five_digit_number()
+
+
+
+
+
+    print("number is: ", number)
+    print("the digits are: ")
+    digits = get_num_digits(number)
+    print("digits are: ", digits)
+    print("digits sum = ", get_sum(digits))
+
+def get_num_digits(number):
+    list_of_digits = []
+    while(math.floor(number)!=0):
+        list_of_digits.append(number%10)
+        number /= 10
+
+def get_five_digit_number():
+
+    return input("put number: ")
+
+def number_is_valid(number):
+    return number.isnumeric() && len(number) == 5
+
+def main():
+    janwaljan()
+
+
+
+if __name__ == "__main__":
+    main()
