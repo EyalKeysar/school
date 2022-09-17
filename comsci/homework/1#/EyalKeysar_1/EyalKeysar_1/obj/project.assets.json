@@ -8,19 +8,24 @@
     ".NETCoreApp,Version=v3.1": []
   },
   "packageFolders": {
-    "C:\\Users\\הדר\\.nuget\\packages\\": {}
+    "C:\\Users\\dvir\\.nuget\\packages\\": {},
+    "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\הדר\\source\\repos\\EyalKeysar_1\\EyalKeysar_1\\EyalKeysar_1.csproj",
+      "projectUniqueName": "C:\\Networks\\school\\comsci\\homework\\1#\\EyalKeysar_1\\EyalKeysar_1\\EyalKeysar_1.csproj",
       "projectName": "EyalKeysar_1",
-      "projectPath": "C:\\Users\\הדר\\source\\repos\\EyalKeysar_1\\EyalKeysar_1\\EyalKeysar_1.csproj",
-      "packagesPath": "C:\\Users\\הדר\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\הדר\\source\\repos\\EyalKeysar_1\\EyalKeysar_1\\obj\\",
+      "projectPath": "C:\\Networks\\school\\comsci\\homework\\1#\\EyalKeysar_1\\EyalKeysar_1\\EyalKeysar_1.csproj",
+      "packagesPath": "C:\\Users\\dvir\\.nuget\\packages\\",
+      "outputPath": "C:\\Networks\\school\\comsci\\homework\\1#\\EyalKeysar_1\\EyalKeysar_1\\obj\\",
       "projectStyle": "PackageReference",
+      "fallbackFolders": [
+        "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
+      ],
       "configFilePaths": [
-        "C:\\Users\\הדר\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\dvir\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
@@ -60,7 +65,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.100\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.407\\RuntimeIdentifierGraph.json"
       }
     }
   }

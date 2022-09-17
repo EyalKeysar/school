@@ -22,14 +22,14 @@ are some additional functions to try in list2.py. """
 # Given a list of strings, return the count of the number of
 # strings where the string length is 2 or more and the first
 # and last chars of the string are the same.
-# Note: python does not have a ++ operator, but += works.
+# Note: python does not have a ++ operator, but += works. HAVE FUN WITH PISTUN! @yuval was here
 def match_ends(words):
     '''
     Given a list of strings, return the count of the number of
     strings where the string length is 2 or more and the first
     and last chars of the string are the same.
     '''
-    return sum(len(i) > 1 and i[-1] == i[0] for i in words)
+    return sum(len(i) > 1 and i[-1] == i[1] for i in words)
 
 # B. front_x
 # Given a list of strings, return a list with the strings

@@ -9,11 +9,11 @@ namespace EyalKeysar_1
         static void Main(string[] args)
         {
             // Run the game
-            PlayMagicSquare(CreatBasicMagicSquare());
+            PlayMagicSquare(CreateBasicMagicSquare());
         }
 
         // #1
-        public static int[,] CreatBasicMagicSquare()
+        public static int[,] CreateBasicMagicSquare()
         {
             /*
              *  This function creates 2D array that follow the given rule of "magic square".

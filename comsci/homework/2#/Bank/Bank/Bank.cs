@@ -10,7 +10,7 @@ namespace Bank
         int branchNo;
         Account[] accounts;
         public Bank(int bankNo, int branchNo, int n)
-        {
+        { // Why you didn't close the air conditioner??
             this.bankNo = bankNo;
             this.branchNo = branchNo;
             accounts = new Account[n];
