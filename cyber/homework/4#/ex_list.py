@@ -108,8 +108,29 @@ def remove_adjacent(nums):
 # NOTE - DO NOT use return sorted(sorted1 + sorted2) - that's too easy :-)
 #
 def linear_merge(sorted1, sorted2):
-    """  +++your code here+++ """
-    return
+    """
+    Given two lists sorted in increasing order, create and return a merged
+    list of all the elements in sorted order. You may modify the passed in lists.
+    Ideally, the solution should work in "linear" time, making a single
+    pass of both lists.
+    """
+    new_lst = []
+    ind1 = 0
+    ind2 = 0
+    for i in range(len(sorted1) + len(sorted2)):
+        if(ind1 == len(sorted1)):
+            new_lst.append(sorted2[ind2])
+            ind2 += 1
+        elif(ind2 == len(sorted2)):
+            new_lst.append(sorted1[ind1])
+            ind1 += 1
+        elif(sorted1[ind1] < sorted2[ind2]):
+            new_lst.append(sorted1[ind1])
+            ind1 += 1
+        else:
+            new_lst.append(sorted2[ind2])
+            ind2 += 1
+    return new_lst
 
 
 def test(got, expected):
