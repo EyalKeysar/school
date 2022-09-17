@@ -39,9 +39,28 @@ def match_ends(words):
 # Hint: this can be done by making 2 lists and sorting each of them
 # before combining them.
 def front_x(words):
-    """ +++your code here+++ """
+    """
+    Given a list of strings, return a list with the strings
+    in sorted order, except group all the strings that begin with 'x' first.
+    """
+    x_list = []
+    not_x_list = []
+    for i in words: # Adds to each list the words from words.
+        if(i[0] == "x"):
+            x_list.append(i)
+        else:
+            not_x_list.append(i)
+            
+    # Sorting the words lists.
+    x_list.sort()
+    not_x_list.sort()
     
-    return
+    # Final result is the addition of the non x words to the x words.
+    final_result = [i for i in x_list]
+    for i in not_x_list:
+        final_result.append(i)
+        
+    return final_result
 
 
 # C. sort_last
@@ -50,9 +69,17 @@ def front_x(words):
 # e.g. [(1, 7), (1, 3), (3, 4, 5), (2, 2)] yields
 # [(2, 2), (1, 3), (3, 4, 5), (1, 7)]
 # Hint: use a custom key= function to extract the last element form each tuple.
+def get_last_element(tup):
+    return tup[-1]
+
 def sort_last(tuples):
-    """  +++your code here+++ """
-    return
+    """ 
+    Given a list of non-empty tuples, return a list sorted in increasing
+    order by the last element in each tuple.
+    """
+    tuples.sort(key=get_last_element)
+    return (tuples)
+    
 
 
 # D. Given a list of numbers, return a list where
@@ -60,8 +87,17 @@ def sort_last(tuples):
 # so [1, 2, 2, 3] returns [1, 2, 3]. You may create a new list or
 # modify the passed in list.
 def remove_adjacent(nums):
-    """  +++your code here+++ """
-    return
+    """
+    Given a list of numbers, return a list where
+    all adjacent == elements have been reduced to a single element.
+    """
+    if(len(nums) >= 1):
+        new_list = [nums[0]]
+        for i in nums:
+            if(i != new_list[-1]):
+                new_list.append(i)
+        return new_list
+    return []  # If the list has 0 elements.
 
 
 # E. Given two lists sorted in increasing order, create and return a merged
