@@ -50,16 +50,16 @@ def front_x(words):
             x_list.append(i)
         else:
             not_x_list.append(i)
-            
+
     # Sorting the words lists.
     x_list.sort()
     not_x_list.sort()
-    
+
     # Final result is the addition of the non x words to the x words.
     final_result = [i for i in x_list]
     for i in not_x_list:
         final_result.append(i)
-        
+
     return final_result
 
 
@@ -70,17 +70,23 @@ def front_x(words):
 # [(2, 2), (1, 3), (3, 4, 5), (1, 7)]
 # Hint: use a custom key= function to extract the last element form each tuple.
 def get_last_element(tup):
+    """_summary_
+
+    Args:
+        tup (int): current tuple
+
+    Returns:
+        int: last element of the tuple
+    """
     return tup[-1]
 
 def sort_last(tuples):
-    """ 
+    """
     Given a list of non-empty tuples, return a list sorted in increasing
     order by the last element in each tuple.
     """
     tuples.sort(key=get_last_element)
-    return (tuples)
-    
-
+    return tuples
 
 # D. Given a list of numbers, return a list where
 # all adjacent == elements have been reduced to a single element,
