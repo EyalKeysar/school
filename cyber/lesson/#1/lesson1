@@ -1,35 +1,10 @@
-import math
+prices = {"bamba":10, "apple":12, "water":9, "peas":8, "egg":1}
+shopping_cart = {"bamba":2, "apple":4, "water":11, "peas":12, "egg":3, "orange":10}
 
-def janwaljan():
-    number = get_five_digit_number()
-
-
-
-
-
-    print("number is: ", number)
-    print("the digits are: ")
-    digits = get_num_digits(number)
-    print("digits are: ", digits)
-    print("digits sum = ", get_sum(digits))
-
-def get_num_digits(number):
-    list_of_digits = []
-    while(math.floor(number)!=0):
-        list_of_digits.append(number%10)
-        number /= 10
-
-def get_five_digit_number():
-
-    return input("put number: ")
-
-def number_is_valid(number):
-    return number.isnumeric() && len(number) == 5
-
-def main():
-    janwaljan()
-
-
-
-if __name__ == "__main__":
-    main()
+sum = 0
+for (name, amount) in shopping_cart.items():
+    if(name in prices.keys()):
+        sum += prices[name]*amount
+    else:
+        print("error ", name, " not in prices")
+print("sum = ", sum)
