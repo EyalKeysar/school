@@ -1,29 +1,26 @@
 import os
+from spellchecker import SpellChecker
 
-main_dir = r"C:\Networks\school\cyber\homework\word_count"
-INPUT_PATH = main_dir + r"\input.txt"
-DICT_PATH = main_dir + r"\words.txt"
-OUTPUT_PATH = main_dir + r"\output.txt"
 
-file = open(INPUT_PATH, "r")
+INPUT_PATH = r"C:\Networks\school\cyber\homework\word_count\input.txt"
+
+file = open(INPUT_PATH, "r", encoding="utf8") # Open the file to read words from.
 words = file.read().split(" ") # Read file and split its words
 
-dictionary = open(DICT_PATH, "r")
-valid_words = dictionary.read().split("\n")
+spell = SpellChecker()
 
-def get_word():
-    """
-    This function takes input from the user and returns it.
+def check(word):
+    return word == spell.correction(word)
 
-    Returns:
-        String: The word taken from user.
-    """
+def main():
+    count = 0
+    if(os.path.isfile(INPUT_PATH) and os.path.splitext(INPUT_PATH)[1] == ".txt"):
+        for word in words:
+            if check(word):
+                count += 1
+        print(count)
+    else:
+        print("Error - input text file does not exists")
 
-    return input("word : ")
-
-def validate_word_list(words):
-    return [word for word in words if word in valid_words]
-
-def write(correct_words):
-    f = open(OUTPUT_PATH, "w")
-    f.write("\n".join(correct_words))
+if __name__ == "__main__":
+    main()
