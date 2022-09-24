@@ -36,18 +36,16 @@ Optional: define a helper function to avoid code duplication inside
 print_words() and print_top().
 
 """
-import enchant
+import english_words
 import sys
 
-# +++your code here+++
+valid_words = english_words.english_words_set
+
 # Define print_words(filename) and print_top(filename) functions.
 # You could write a helper utility function that reads a file
 # and builds and returns a word/count dict for it.
 # Then print_words() and print_top() can just call the utility function.
 
-###
-
-d = enchant.Dict("en")
 
 def get_words(filename):
     try:
