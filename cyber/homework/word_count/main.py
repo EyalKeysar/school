@@ -1,26 +1,26 @@
-import os
-from spellchecker import SpellChecker
+import enchant
+import sys
 
+d = enchant.Dict("en_USs")
 
-INPUT_PATH = r"C:\Networks\school\cyber\homework\word_count\input.txt"
-
-file = open(INPUT_PATH, "r", encoding="utf8") # Open the file to read words from.
-words = file.read().split(" ") # Read file and split its words
-
-spell = SpellChecker()
-
-def check(word):
-    return word == spell.correction(word)
+def get_words(filename):
+    try:
+        txt = open(filename, "r").read()
+        words = txt.split()
+        words.sort()
+        return words
+    except FileNotFoundError:
+        print("File not find")
+        return []
+    
+def add_word_to_dict(word_count, word):
+    if word in word_count:
+        word_count[word] += 1
+    else:
+        word_count[word] = 1
 
 def main():
-    count = 0
-    if(os.path.isfile(INPUT_PATH) and os.path.splitext(INPUT_PATH)[1] == ".txt"):
-        for word in words:
-            if check(word):
-                count += 1
-        print(count)
-    else:
-        print("Error - input text file does not exists")
-
-if __name__ == "__main__":
+    
+    print(get_words("alice.txt"))
+if(__name__ == "__main__"):
     main()
