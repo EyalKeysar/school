@@ -42,23 +42,50 @@ import english_words
 
 
 EN_DICT_WORDS = english_words.english_words_set  # List of words that are in the English dictionary
-
+word_count = {}
 
 def get_words(file_name: str) -> list[str]:
     try:
         txt = open(file_name, "r").read()
         words = txt.split()
-        words.sort()
         return words
     except FileNotFoundError:
         print("File not found")
         sys.exit(1)
-    
+
+def add_normal_words(words: list, word_count: dict, bad_words: dict) -> None:
+    for word in words:
+        if word in EN_DICT_WORDS:
+            add_word_to_dict(word_count, word)
+        else:
+            add_word_to_dict(bad_words, word)
+
 def add_word_to_dict(word_count, word):
     if word in word_count:
         word_count[word] += 1
     else:
         word_count[word] = 1
+
+# This basic command line argument parsing code is provided and
+# calls the print_words() and print_top() functions which you must define.
+def main():
+    """
+    """
+    words = get_words(r"C:\Networks\school\cyber\homework\5# word_count\alice.txt")
+    add_normal_words(words, {}, {})
+    if len(sys.argv) != 3:
+        print('usage: ./wordcount.py {--count | --topcount} file')
+        sys.exit(1)
+    option = sys.argv[1]
+    filename = sys.argv[2]
+    if option == '--count':
+        print_words(filename)
+    elif option == '--topcount':
+        print_top(filename)
+    else:
+        print('unknown option: ' + option)
+        sys.exit(1)
+
 
 def print_words(file_name: str) -> None:
     """_summary_
@@ -75,23 +102,6 @@ def print_top(file_name: str) -> None:
     """
     print(file_name)
 
-# This basic command line argument parsing code is provided and
-# calls the print_words() and print_top() functions which you must define.
-def main():
-    """
-    """
-    if len(sys.argv) != 3:
-        print('usage: ./wordcount.py {--count | --topcount} file')
-        sys.exit(1)
-    option = sys.argv[1]
-    filename = sys.argv[2]
-    if option == '--count':
-        print_words(filename)
-    elif option == '--topcount':
-        print_top(filename)
-    else:
-        print('unknown option: ' + option)
-        sys.exit(1)
 
 if __name__ == '__main__':
     main()
