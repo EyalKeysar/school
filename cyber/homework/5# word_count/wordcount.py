@@ -38,9 +38,10 @@ print_words() and print_top().
 
 # Imports
 import sys
+from typing import Text
 import english_words
 
-
+TEXT_FILE_NAME = "alice.txt"
 EN_DICT_WORDS = english_words.english_words_set  # List of words that are in the English dictionary
 word_count = {}
 
@@ -71,37 +72,16 @@ def add_word_to_dict(word_count, word):
 def main():
     """
     """
-    words = get_words(r"C:\Networks\school\cyber\homework\5# word_count\alice.txt")
-    add_normal_words(words, {}, {})
-    if len(sys.argv) != 3:
-        print('usage: ./wordcount.py {--count | --topcount} file')
-        sys.exit(1)
-    option = sys.argv[1]
-    filename = sys.argv[2]
-    if option == '--count':
-        print_words(filename)
-    elif option == '--topcount':
-        print_top(filename)
-    else:
-        print('unknown option: ' + option)
-        sys.exit(1)
-
+    words_count = {}
+    words = get_words(TEXT_FILE_NAME)
+    add_normal_words(words, words_count, {})
+    print(words_count)
 
 def print_words(file_name: str) -> None:
-    """_summary_
-    Args:
-        file_name (str): _description_
-    """
     print("non def")
 
 def print_top(file_name: str) -> None:
-    """_summary_
-
-    Args:
-        file_name (str): _description_
-    """
     print(file_name)
-
 
 if __name__ == '__main__':
     main()
