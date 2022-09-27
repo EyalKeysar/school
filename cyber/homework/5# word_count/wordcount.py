@@ -38,12 +38,24 @@ print_words() and print_top().
 
 # Imports
 import sys
-from typing import Text
+import enchant
 import english_words
 
 TEXT_FILE_NAME = "alice.txt"
 EN_DICT_WORDS = english_words.english_words_set  # List of words that are in the English dictionary
+EN_ALPHA_WORDS = english_words.english_words_lower_alpha_set
+enchant_dict = enchant.Dict("en_US")
+enchant_dict_uk = enchant.Dict("en_UK")
 word_count = {}
+
+def word_in_lib_check(word: str) -> bool:
+    return word in english_words.english_words_lower_alpha_set or word in english_words.english_words_alpha_set or word in english_words.english_words_set or word in english_words.english_words_lower_set or enchant_dict.check(word) or enchant_dict_uk.check(word)
+
+def add_word_to_dict(word_count, word):
+    if word in word_count:
+        word_count[word] += 1
+    else:
+        word_count[word] = 1
 
 def get_words(file_name: str) -> list[str]:
     try:
@@ -54,18 +66,45 @@ def get_words(file_name: str) -> list[str]:
         print("File not found")
         sys.exit(1)
 
-def add_normal_words(words: list, word_count: dict, bad_words: dict) -> None:
+def strip_word(word: str) -> str:
+    symbols = ['!', '_', '(', ')', '.', ',', '-', '*', ':', '\"', '?', '`', "'", ";", "[", "]"]
+    new_word = word
+    for symbol in symbols:
+        new_word = new_word.replace(symbol, "")
+    return new_word
+
+def sub_words(words: list, word_count: dict, unsubbed_words: list) -> None:
+    
+
+def add_words(words: list, word_count: dict, bad_words: list) -> None:
     for word in words:
-        if word in EN_DICT_WORDS:
+        saved_word = word
+        word = word.lower()
+
+        if word_in_lib_check(word):
+            # Normal word.
             add_word_to_dict(word_count, word)
         else:
-            add_word_to_dict(bad_words, word)
+            # If word has symboles in it.
+            try:
+                word = strip_word(word)
+                if word_in_lib_check(word):
+                    add_word_to_dict(word_count, word)
+                else:
+                    # If the current word start with an uppercase letter and is not in the dictionary so it is a name.
+                    try:
+                        if strip_word(saved_word)[0].isupper():
+                            add_word_to_dict(word_count, strip_word(saved_word))
+                        else:
+                            print(word)
+                            add_word_to_dict(bad_words, word)
+                    except IndexError:
+                        print("err: empty string")
+            except ValueError:
+                print("err: empty string (enchant)")
+            
 
-def add_word_to_dict(word_count, word):
-    if word in word_count:
-        word_count[word] += 1
-    else:
-        word_count[word] = 1
+
 
 # This basic command line argument parsing code is provided and
 # calls the print_words() and print_top() functions which you must define.
@@ -73,9 +112,10 @@ def main():
     """
     """
     words_count = {}
+    unnormal_words = {}
     words = get_words(TEXT_FILE_NAME)
-    add_normal_words(words, words_count, {})
-    print(words_count)
+    add_words(words, words_count, unnormal_words)
+    print(unnormal_words)
 
 def print_words(file_name: str) -> None:
     print("non def")
