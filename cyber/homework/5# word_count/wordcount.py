@@ -49,8 +49,10 @@ enchant_dict_uk = enchant.Dict("en_UK")
 word_count = {}
 
 def word_in_lib_check(word: str) -> bool:
-    return word in english_words.english_words_lower_alpha_set or word in english_words.english_words_alpha_set or word in english_words.english_words_set or word in english_words.english_words_lower_set or enchant_dict.check(word) or enchant_dict_uk.check(word)
-
+    try:
+        return word in english_words.english_words_lower_alpha_set or word in english_words.english_words_alpha_set or word in english_words.english_words_set or word in english_words.english_words_lower_set or enchant_dict.check(word) or enchant_dict_uk.check(word)
+    except ValueError:
+        print("err: checked empty word")
 def add_word_to_dict(word_count, word):
     if word in word_count:
         word_count[word] += 1
@@ -67,7 +69,7 @@ def get_words(file_name: str) -> list[str]:
         sys.exit(1)
 
 def strip_word(word: str) -> str:
-    symbols = ['!', '_', '(', ')', '.', ',', '-', '*', ':', '\"', '?', '`', "'", ";", "[", "]"]
+    symbols = ['!', '_', '(', ')', '.', ',', '-', '*', ':', '\"', '?', '`', "'", ";", "[", "]", "{","}"]
     new_word = word
     for symbol in symbols:
         new_word = new_word.replace(symbol, "")
@@ -80,20 +82,16 @@ def sub_words(words: list, word_count: dict, unsubbed_words: list) -> None:
             first = word[:i]
             second = word[i:]
             if(word_in_lib_check(first) and word_in_lib_check(second)):
-                add_word_to_dict(first, word_count)
-                add_word_to_dict(second, word_count)
+                add_word_to_dict(word_count, first)
+                add_word_to_dict(word_count, second)
                 break
 
         # Checks if word contain another word.
         for i in range(len(word)):
-            longest_len = 0
-            longest_word = ""
-            first = word[:i]
+            first = word[:len(word) - i]
             if(word_in_lib_check(first)):
-                if(len(first) > longest_len):
-                    longest_len = len(first)
-                    longest_word = first
-        add_word_to_dict(first, word_count)
+                add_word_to_dict(word_count, first)
+                break
         
             
 
@@ -119,7 +117,6 @@ def add_words(words: list, word_count: dict, bad_words: list) -> None:
                         if strip_word(saved_word)[0].isupper():
                             add_word_to_dict(word_count, strip_word(saved_word))
                         else:
-                            print(word)
                             add_word_to_dict(bad_words, word)
                     except IndexError:
                         print("err: empty string")
@@ -138,7 +135,9 @@ def main():
     unnormal_words = {}
     words = get_words(TEXT_FILE_NAME)
     add_words(words, words_count, unnormal_words)
-    print(unnormal_words)
+    unnormal_unsubbed_words = {}
+    sub_words(unnormal_words, word_count, unnormal_unsubbed_words)
+    print(unnormal_unsubbed_words)
 
 def print_words(file_name: str) -> None:
     print("non def")
