@@ -74,7 +74,30 @@ def strip_word(word: str) -> str:
     return new_word
 
 def sub_words(words: list, word_count: dict, unsubbed_words: list) -> None:
-    
+    for word in words:
+        # Checks if word contains 2 word inside
+        for i in range(len(word)):
+            first = word[:i]
+            second = word[i:]
+            if(word_in_lib_check(first) and word_in_lib_check(second)):
+                add_word_to_dict(first, word_count)
+                add_word_to_dict(second, word_count)
+                break
+
+        # Checks if word contain another word.
+        for i in range(len(word)):
+            longest_len = 0
+            longest_word = ""
+            first = word[:i]
+            if(word_in_lib_check(first)):
+                if(len(first) > longest_len):
+                    longest_len = len(first)
+                    longest_word = first
+        add_word_to_dict(first, word_count)
+        
+            
+
+
 
 def add_words(words: list, word_count: dict, bad_words: list) -> None:
     for word in words:
