@@ -37,6 +37,7 @@ print_words() and print_top().
 """
 
 # Imports
+import math
 import sys
 import enchant
 import english_words
@@ -50,7 +51,8 @@ word_count = {}
 
 def word_in_lib_check(word: str) -> bool:
     try:
-        return word in english_words.english_words_lower_alpha_set or word in english_words.english_words_alpha_set or word in english_words.english_words_set or word in english_words.english_words_lower_set or enchant_dict.check(word) or enchant_dict_uk.check(word)
+        return enchant_dict_uk.check(word)
+    #word in english_words.english_words_lower_alpha_set or word in english_words.english_words_alpha_set or word in english_words.english_words_set or word in english_words.english_words_lower_set or enchant_dict.check(word)
     except ValueError:
         print("err: checked empty word")
 def add_word_to_dict(word_count, word):
@@ -75,23 +77,33 @@ def strip_word(word: str) -> str:
         new_word = new_word.replace(symbol, "")
     return new_word
 
-def sub_words(words: list, word_count: dict, unsubbed_words: list) -> None:
+def sub_words(words: dict, word_count: dict, unsubbed_words: dict) -> None:
     for word in words:
-        # Checks if word contains 2 word inside
-        for i in range(len(word)):
-            first = word[:i]
-            second = word[i:]
-            if(word_in_lib_check(first) and word_in_lib_check(second)):
-                add_word_to_dict(word_count, first)
-                add_word_to_dict(word_count, second)
-                break
+        if(len(word) > 2):
+            word_exists = False;
+            # Checks if word contains 2 word inside
+            for i in range(len(word)):
+                first = word[:i]
+                second = word[i:]
+                if(word_in_lib_check(first) and word_in_lib_check(second)):
+                    word_exists = True
+                    for i in range(words[word]):
+                        add_word_to_dict(word_count, first)
+                        add_word_to_dict(word_count, second)
+                    break
 
         # Checks if word contain another word.
-        for i in range(len(word)):
-            first = word[:len(word) - i]
-            if(word_in_lib_check(first)):
-                add_word_to_dict(word_count, first)
-                break
+            for i in range(len(word)):
+                first = word[:len(word) - i]
+                if(word_in_lib_check(first)):
+                    word_exists = True
+                    for i in range(words[word]):
+                        add_word_to_dict(word_count, first)
+                    break
+            if(not word_exists):
+                for i in range(words[word]):
+                    add_word_to_dict(unsubbed_words, word)
+                
         
             
 
@@ -123,27 +135,53 @@ def add_words(words: list, word_count: dict, bad_words: list) -> None:
             except ValueError:
                 print("err: empty string (enchant)")
             
+def get_min_dict(some_dict: dict):
+    for key in some_dict:
+        min = key
+        break
+
+    for key in some_dict:
+        if(some_dict[key] < some_dict[min]):
+            min = key
+        
+    return min
+
+def print_most_used_words(word_count: dict) -> None:
+    most_used = {"1": 0, "2": 0, "3": 0, "4": 0, "5": 0, "6": 0, "7": 0, "8": 0, "9": 0, "11": 0, "12": 0, "13": 0, "14": 0, "15": 0, "16": 0, "17": 0, "18": 0, "19": 0, "20": 0, "21": 0}
+    for key in word_count:
+        if(word_count[key] > most_used[get_min_dict(most_used)]):
+            most_used[key] = most_used.pop(get_min_dict(most_used))
+            most_used[key] = word_count[key]
+    for key in most_used:
+        print(key + "  :  " + str(most_used[key]))
+
 
 
 
 # This basic command line argument parsing code is provided and
 # calls the print_words() and print_top() functions which you must define.
 def main():
-    """
-    """
+    # Setting up dictionaries.
     words_count = {}
     unnormal_words = {}
+    
+    # Get word list from text file.
     words = get_words(TEXT_FILE_NAME)
+    
+    # Adding words to dictionary.
     add_words(words, words_count, unnormal_words)
-    unnormal_unsubbed_words = {}
-    sub_words(unnormal_words, word_count, unnormal_unsubbed_words)
-    print(unnormal_unsubbed_words)
-
-def print_words(file_name: str) -> None:
-    print("non def")
-
-def print_top(file_name: str) -> None:
-    print(file_name)
+    # Checking for sub-words or two words connected.
+    sub_words(unnormal_words, word_count, {})
+    
+    try:
+        if(sys.argv[1] == "--top"):
+            print_most_used_words(word_count)
+        else:
+            print(word_count)
+    except IndexError:
+        print("no argument (--count | --top)")
+        for i in sys.argv:
+            print(i)
 
 if __name__ == '__main__':
     main()
