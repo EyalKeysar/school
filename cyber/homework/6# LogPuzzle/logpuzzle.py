@@ -6,12 +6,11 @@
 # Google's Python Class
 # http://code.google.com/edu/languages/google-python-class/
 
-from hashlib import new
-from logging import exception
 import os
 import re
 import sys
 import urllib
+import urllib.request
 
 """Logpuzzle exercise
 Given an apache logfile, find the puzzle urls and download the images.
@@ -27,28 +26,44 @@ def read_urls(filename: str) -> list:
     Screens out duplicate urls and returns the urls sorted into
     increasing order."""
     try:
-        open(filename)
-        txt = open(filename, "r").read()
-    except:
-        print("file not found")
-        sys.exit(1)
-    lines = txt.split("\n")
-    files_name = []
+        txt = open(filename, "r").read()  # Read text from file
+
+    except FileNotFoundError:
+        print("File not found")
+        sys.exit(1)  # Exit program.
+
+    except Exception as err:
+        print("Untracked: " + err)
+        sys.exit(1)  # Exit program.
+
+    lines = txt.split("\n")  # Split text into lines.
+    files_names = []  # This list will contain all valid files names.
     for line in lines:
-        words = line.split(" ")
+        words = line.split(" ")  # Split line into words and arguments.
         try:
+            # In http GET request the wanted file location on the
+            # server is after the "GET" statement, (ספר גבהים רשתות עמוד 93).
             path = words[words.index("\"GET") + 1]
+            # Split path to directories and files (from index 1 to avoid the first "/").
             path_dir_names = path[1:].split("/")
+
             if(path_dir_names[0] == "python" and path_dir_names[1] == "logpuzzle"):
-                files_name.append(path_dir_names[2])
-        except Exception as e:
-            print(f"err: {e} \n {words}")
-    files_name = list(set(files_name))
-    files_name.sort(key=str.lower)
-    return files_name
+                files_names.append(path_dir_names[2])  # Add this file name to the list.
+
+        except IndexError:
+            print(f"Index error:\nwords = {words}")
+        except Exception as err:
+            print(f"Untracked: {err}")
+    # Change the type of the list to a set and then back to list that so it will delete duplicates.
+    files_names = list(set(files_names))
+    # Sort list by the abc.
+    
+    files_names.sort(key=lambda x: x[len(x)-8:])
+
+    return files_names
 
 
-def download_images(img_urls: list, dest_dir: str):
+def download_images(img_urls: list, dest_dir: str) -> None:
     """Given the urls already in the correct order, downloads
     each image into the given directory.
     Gives the images local filenames img0, img1, and so on.
@@ -56,10 +71,20 @@ def download_images(img_urls: list, dest_dir: str):
     with an img tag to show each local image file.
     Creates the directory if necessary.
     """
+    html_to_write = "<html><body>"
+    for file in img_urls:
+        url_to_get = r"https://data.cyber.org.il/python/logpuzzle/" + file
+        data = urllib.request.urlretrieve(url_to_get, file)
+        os.replace(file, dest_dir + file)
+        html_to_write += "<img src = \"" + dest_dir + file + "\">"
+    html_to_write += "</body></html>"
+    html_file = open("output.html", "w").write(html_to_write)
 
 # 10.254.254.65 - - [06/Aug/2007:00:09:21 -0700] "GET /python/logpuzzle/p-bfhh-bahj.jpg HTTP/1.0" 302 528 "-" "googlebot-mscrawl-moma (enterprise; bar-XYZ; foo123@facebook.com)"
 def main() -> None:
-    print(read_urls(r"./logo_data.cyber.org.il"))
+    img_urls = read_urls(r"./logo_data.cyber.org.il")
+    dest_dir = "./images/"
+    download_images(img_urls, dest_dir)
     sys.exit(0)
     args = sys.argv[1:]
 
