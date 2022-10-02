@@ -11,6 +11,7 @@ Given an apache logfile, find the puzzle urls and download the images.
 # Google's Python Class
 # http://code.google.com/edu/languages/google-python-class/
 
+from ctypes import WinError
 import os
 import sys
 import urllib
@@ -78,23 +79,33 @@ def download_images(img_urls: list, dest_dir: str) -> None:
     """
     html_to_write = "<html><body>"  # Start of an html file.
     sum_of_images = 0
-    try:
-        for file in img_urls:
-            url_to_get = r"https://data.cyber.org.il/python/logpuzzle/" + file
-            data = urllib.request.urlretrieve(url_to_get, file)  # Get image from current url.
+    download_images_not_finished = True
+    dir_created = False
+    while download_images_not_finished:
+        try:
+            for file in img_urls:
+                url_to_get = r"https://data.cyber.org.il/python/logpuzzle/" + file
+                data = urllib.request.urlretrieve(url_to_get, file)  # Get image from current url.
 
-            # The image will be imported to the program directory
-            # so it need to be replaced to dest_dir.
-            os.replace(file, dest_dir + file)
+                # The image will be imported to the program directory
+                # so it need to be replaced to dest_dir.
+                os.replace(file, dest_dir + file)
+                dir_created = True
 
-            # Add img src to the html page.
-            html_to_write += "<img src = \"" + dest_dir + file + "\">"
-            sum_of_images += 1
-            print(f"Image number: {sum_of_images} has been successfully downloaded.")
+                # Add img src to the html page.
+                html_to_write += "<img src = \"" + dest_dir + file + "\">"
+                sum_of_images += 1
+                print(f"Image number: {sum_of_images} has been successfully downloaded.")
+            download_images_not_finished = False
+        except WindowsError as err:
+            if(dir_created):
+                print("Program can not handle " + err)
+                sys.exit(1)
+            print("Creating " + dest_dir)
+            os.mkdir(dest_dir)
+            dir_created = True
+        
 
-    except Exception as err:
-        print(f"Untracked: {err}\nin download_images function")
-        sys.exit(1)
 
     html_to_write += "</body></html>"  # End of an html file.
     open("output.html", "w").write(html_to_write)  # Write to the html file.
