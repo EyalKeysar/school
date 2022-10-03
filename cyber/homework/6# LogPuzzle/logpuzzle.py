@@ -12,10 +12,14 @@ Given an apache logfile, find the puzzle urls and download the images.
 # http://code.google.com/edu/languages/google-python-class/
 
 from ctypes import WinError
+from email import message
 import os
 import sys
 import urllib
 import urllib.request
+
+logo_pcapng_path = r"./logo_data.cyber.org.il"
+message_pcapng_path = r"./message_data.cyber.org.il"
 
 def read_urls(filename: str) -> list:
     """Returns a list of the puzzle urls from the given log file,
@@ -104,7 +108,6 @@ def download_images(img_urls: list, dest_dir: str) -> None:
             print("Creating " + dest_dir)
             os.mkdir(dest_dir)
             dir_created = True
-        
 
 
     html_to_write += "</body></html>"  # End of an html file.
@@ -114,7 +117,15 @@ def main() -> None:
     """
     This is the main function.
     """
-    img_urls = read_urls(r"./message_data.cyber.org.il")
+    if len(sys.argv) > 1:
+        if(sys.argv[1] == "logo"):
+            img_to_read = logo_pcapng_path
+        else:
+            img_to_read = message_pcapng_path
+    else:
+        img_to_read = message_pcapng_path
+
+    img_urls = read_urls(img_to_read)
     dest_dir = "./images/"
     download_images(img_urls, dest_dir)
     sys.exit(0)
