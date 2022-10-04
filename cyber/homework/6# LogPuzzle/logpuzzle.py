@@ -104,9 +104,6 @@ def download_images(img_urls: list, dest_dir: str) -> None:
             print("Creating " + dest_dir)
             os.mkdir(dest_dir)
             dir_created = True
-        
-
-
     html_to_write += "</body></html>"  # End of an html file.
     open("output.html", "w").write(html_to_write)  # Write to the html file.
 
