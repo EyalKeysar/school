@@ -1,10 +1,8 @@
-import AirCube
+from AirCube import AirCube
+import random
+
 class CrazyPlane:
-    __pos: AirCube
-    __velX: int
-    __velY: int
-    
-    def __init__():
-        print()
-    def update() -> None:
+    def __init__(self):
         
+    def update(self) -> None:
+        print()
