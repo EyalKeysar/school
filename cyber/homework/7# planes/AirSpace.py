@@ -3,7 +3,6 @@ from AirCube import AirCube
 from typing import *
 
 class AirSpace:
-    
     def __init__(self):
         self.__airGrid: List[List[AirCube]] = [[]]
         self.__crazyPlanes: List[CrazyPlane] = []
@@ -14,7 +13,7 @@ class AirSpace:
                 self.__airGrid[i][r] = AirCube(i, r)
         for i in range(4):
             self.__crazyPlanes[i] = CrazyPlane()
-            
+
     def mainLoop(self):
         loopBool = True
         while(loopBool):
