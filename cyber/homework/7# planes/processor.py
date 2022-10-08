@@ -1,3 +1,4 @@
+import time
 import pygame
 from AirSpace import AirSpace
 
@@ -5,6 +6,12 @@ BG_COLOR = (0, 0, 0)  # black
 RED_COLOR = (255, 0, 0)  # red
 BLOCK_LENGTH = 50
 SCREEN_SIZE = 500
+plain_img_0 = pygame.image.load('planes/0.png')
+plain_img_1 = pygame.image.load('planes/1.png')
+plain_img_2 = pygame.image.load('planes/2.png')
+plain_img_3 = pygame.image.load('planes/3.png')
+plains_images = [plain_img_0, plain_img_1, plain_img_2, plain_img_3]
+
 
 def main() -> None:
     global display
@@ -12,18 +19,32 @@ def main() -> None:
     
     pygame.init()
     display = pygame.display.set_mode((SCREEN_SIZE, SCREEN_SIZE))
-    display.fill(BG_COLOR)
-    drawGrid()
     while(True):
+        for event in pygame.event.get():  # Get each of the current events.
+            if(event.type == pygame.KEYDOWN):  # If the event was a key pressing.
+                if(event.key == pygame.K_ESCAPE):  # If that key was escape.
+                    pygame.quit()  # Quit and close program window.
+                    quit()
         pygame.display.update()
+        drawGrid()
+        for num in range(4):  # For each plane.
+            cur_plain =  ais.getPlane(num)  # Get current plane by his number.
+            cur_plain.update()  # Update it's position.
+            drawPlain(num, cur_plain.getPos()[0], cur_plain.getPos()[1])  # Draw plane in new position.
+        time.sleep(1)
     pygame.quit()
     quit()
     
 def drawGrid():
+    display.fill(BG_COLOR)
     for x in range(0, SCREEN_SIZE, BLOCK_LENGTH):
         for y in range(0, SCREEN_SIZE, BLOCK_LENGTH):
             rect = pygame.Rect(x, y, BLOCK_LENGTH, BLOCK_LENGTH)
             pygame.draw.rect(display, RED_COLOR, rect, 1)
+
+def drawPlain(plain_num, x, y):
+    img = pygame.transform.scale(plains_images[plain_num], (50, 50))
+    display.blit(img, (x*50,y*50))
 
 if __name__ == "__main__":
     main()

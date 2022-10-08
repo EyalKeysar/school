@@ -28,8 +28,8 @@ class CrazyPlane:
         return (self.__velX, self.__velY)
 
     def update(self) -> None:
-        if(self.getPos[0] != 0 and self.getPos[1] != 0 and self.getPos[0] != 9 and self.getPos[1] != 9):
-            self.setPos(self.getPos[0] + self.getVel[0], self.getPos[1] + self.getVel[1])
+        if(self.getPos()[0] != 0 and self.getPos()[1] != 0 and self.getPos()[0] != 9 and self.getPos()[1] != 9):
+            self.setPos(self.getPos()[0] + self.getVel()[0], self.getPos()[1] + self.getVel()[1])
 
     def getNewVel(self) -> tuple:
         self.__velX = random.randint(-1, 1)
