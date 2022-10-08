@@ -4,7 +4,7 @@ import AirSpace
 import random
 
 class CrazyPlane:
-    def __init__(self):
+    def __init__(self, num: int):
         airSpace = AirSpace()
         tempX = random.randint(1, 8)
         tempY = random.randint(1, 8)
@@ -15,14 +15,14 @@ class CrazyPlane:
         else:
             self.__velY = random.randint(0, 2)
 
-    def setPos(self, x, y) -> None:
+    def setPos(self, x: int, y: int) -> None:
         self.__pos = AirSpace.getCube(x, y)
 
     def getPos(self) -> tuple:
         return self.__pos.getPlace()
 
-    def setVel(self, x, y) -> None:
-        if((x == -1 or x== 1) and (y == -1 or y == 1)):
+    def setVel(self, x: int, y: int) -> None:
+        if((x in {1, -1}) and (y in {1, -1})):
             self.__velX = x
             self.__velY = y
         else:
@@ -33,7 +33,7 @@ class CrazyPlane:
 
     def update(self) -> None:
         if(self.getPos[0] != 0 and self.getPos[1] != 0 and self.getPos[0] != 9 and self.getPos[1] != 9):
-            self.setPos(self.getPos[0] + self.)
+            self.setPos(self.getPos[0] + self.getVel[0], self.getPos[1] + self.getVel[1])
 
     def getNewVel(self) -> tuple:
         self.__velX = random.randint(-1, 1)

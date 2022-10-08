@@ -4,9 +4,8 @@ from typing import *
 
 class AirSpace:
     def __init__(self):
-        self.__airGrid: List[List[AirCube]] = [[]]
-        self.__crazyPlanes: List[CrazyPlane] = []
-
+        self.__airGrid = [[AirCube() for i in range(10)] for i in range(10)]  # Define 10 by 10 AirCube array.
+        self.__crazyPlanes: List[CrazyPlane] = [CrazyPlane(0), CrazyPlane(1),CrazyPlane(2),CrazyPlane(3)]
 
         for i in range(10):
             for r in range(10):
@@ -19,3 +18,8 @@ class AirSpace:
         while(loopBool):
             for plane in self.__crazyPlanes:
                 plane.update()
+    
+    def getCube(self, x: int, y: int) -> AirCube:
+        for i in self.__airGrid:
+            if(i.getPlace() == (x, y)):
+                return i
