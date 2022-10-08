@@ -1,14 +1,9 @@
 from this import s
-from AirCube import AirCube
-import AirSpace
 import random
 
 class CrazyPlane:
     def __init__(self, num: int):
-        airSpace = AirSpace()
-        tempX = random.randint(1, 8)
-        tempY = random.randint(1, 8)
-        self.__pos = AirSpace.getCube(tempX, tempY)
+        self.__pos = (random.randint(1, 8), random.randint(1, 8))
         self.__velX = random.randint(0, 2)
         if(self.__velX == 0):
             self.__velY = random.randint(1, 2)
@@ -16,10 +11,11 @@ class CrazyPlane:
             self.__velY = random.randint(0, 2)
 
     def setPos(self, x: int, y: int) -> None:
-        self.__pos = AirSpace.getCube(x, y)
+        if(x <= 10 and x>= 0 and y<= 10 and y>= 0):
+            self.__pos = (x, y)
 
     def getPos(self) -> tuple:
-        return self.__pos.getPlace()
+        return self.__pos
 
     def setVel(self, x: int, y: int) -> None:
         if((x in {1, -1}) and (y in {1, -1})):
