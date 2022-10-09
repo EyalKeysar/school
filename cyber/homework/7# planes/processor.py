@@ -1,4 +1,5 @@
 import time
+import sys
 import pygame
 from AirSpace import AirSpace
 
@@ -6,11 +7,15 @@ BG_COLOR = (0, 0, 0)  # black
 RED_COLOR = (255, 0, 0)  # red
 BLOCK_LENGTH = 50
 SCREEN_SIZE = 500
-plain_img_0 = pygame.image.load('planes/0.png')
-plain_img_1 = pygame.image.load('planes/1.png')
-plain_img_2 = pygame.image.load('planes/2.png')
-plain_img_3 = pygame.image.load('planes/3.png')
-plains_images = [plain_img_0, plain_img_1, plain_img_2, plain_img_3]
+try:
+    plain_img_0 = pygame.image.load('planes/0.png')
+    plain_img_1 = pygame.image.load('planes/1.png')
+    plain_img_2 = pygame.image.load('planes/2.png')
+    plain_img_3 = pygame.image.load('planes/3.png')
+    plains_images = [plain_img_0, plain_img_1, plain_img_2, plain_img_3]
+except FileNotFoundError:
+    print("Planes images not found.")
+    sys.exit(1)
 
 
 def main() -> None:
