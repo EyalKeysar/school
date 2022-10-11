@@ -24,6 +24,8 @@ def main() -> None:
     
     pygame.init()
     display = pygame.display.set_mode((SCREEN_SIZE, SCREEN_SIZE))
+    
+    # Graphic and main loop.
     while(True):
         for event in pygame.event.get():  # Get each of the current events.
             if(event.type == pygame.KEYDOWN):  # If the event was a key pressing.
@@ -31,12 +33,19 @@ def main() -> None:
                     pygame.quit()  # Quit and close program window.
                     quit()
         pygame.display.update()
+        
+        # Draw frame.
         drawGrid()
         for num in range(4):  # For each plane.
             cur_plain =  ais.getPlane(num)  # Get current plane by his number.
+            last_pos_x, last_pos_y = cur_plain.getPos()
             cur_plain.update()  # Update it's position.
+            new_pos_x, new_pos_y = cur_plain.getPos()
+            if(new_pos_x in {0, 9} or new_pos_y in {0,9}):
+                sys.exit(1)
             drawPlain(num, cur_plain.getPos()[0], cur_plain.getPos()[1])  # Draw plane in new position.
         time.sleep(1)
+
     pygame.quit()
     quit()
     
