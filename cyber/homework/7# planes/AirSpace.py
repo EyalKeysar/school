@@ -22,6 +22,27 @@ class AirSpace:
             for plane in self.__crazyPlanes:
                 plane.update()
     
+    def updateAirSpace(self):
+        for i in range(4):
+            curPlane = self.getPlane(i)
+            curNextx, curNexty = curPlane.nextMove()
+            for r in range(4):
+                if(i != r):
+                    otherPlane = self.getPlane(r)
+                    otherNextx, otherNexty = otherPlane.nextMove()
+                    planesNextMovGood = False
+                    while(not planesNextMovGood):
+                        if(curNextx == otherNextx and curNexty == otherNexty):
+                            print(str(curNextx) + " " + str(curNexty) + "\n" + str(otherNextx) + " " + str(otherNexty) + "\n\n")
+                            curPlane.setVel(-1 * curPlane.getVel()[0], -1 * curPlane.getVel()[1])
+                            curNextx, curNexty = curPlane.nextMove()
+                        else:
+                            planesNextMovGood = True
+            curPlane.update()
+                
+                
+                
+    
     def getCube(self, x: int, y: int) -> AirCube:
         for i in self.__airGrid:
             if(i.getPlace() == (x, y)):
