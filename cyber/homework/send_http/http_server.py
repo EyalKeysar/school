@@ -31,9 +31,7 @@ def get_file_data(filename):
 def handle_client_request(resource, client_socket):
     """ Check the required resource, generate proper HTTP response and send to client"""
     # TO DO : add code that given a resource (URL and parameters) generates the proper response
-    return
-
-    """
+    
     if resource == '':
         url = DEFAULT_URL
     else:
@@ -54,7 +52,6 @@ def handle_client_request(resource, client_socket):
     data = get_file_data(filename)
     http_response = http_header + data
     client_socket.send(http_response.encode())
-    """
 
 def validate_http_request(request):
     """
@@ -67,7 +64,7 @@ def validate_http_request(request):
     if(request[0:4] == "GET "):
         if(r"HTTP/1.1\r\n" in request):
             current_path = "./webroot/" + request[4:request.index(r" HTTP")]
-            return os.path.isfile(current_path), current_path 
+            return True, current_path
     else:
         return False
     return
@@ -78,6 +75,7 @@ def handle_client(client_socket):
     while True:
         # TO DO: insert code that receives client request
         # ...
+        
         valid_http, resource = validate_http_request(client_request)
         if valid_http:
             print('Got a valid HTTP request')
