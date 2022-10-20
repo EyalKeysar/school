@@ -6,58 +6,75 @@
 
 # TO DO: import modules
 import socket
-#from urllib import request
+import sys
+import os
 
 # TO DO: set constants
 IP = '0.0.0.0'
 PORT = 80
 SOCKET_TIMEOUT = 0.1
-DEFAULT_URL = "\Networks\webroot\index.html"
-filetype = "html"
+
+
 
 def get_file_data(filename):
     """ Get data from file """
-    
-    return
+    try:
+        # reading the file data.
+        file_pointer = open(filename, "r", encoding='utf-8')
+        file_data = file_pointer.read()
+    except FileNotFoundError:
+        print("file not found")
+        sys.exit(0)
+    return file_data
 
 
 def handle_client_request(resource, client_socket):
     """ Check the required resource, generate proper HTTP response and send to client"""
     # TO DO : add code that given a resource (URL and parameters) generates the proper response
-    
-    
+    return
+
+    """
     if resource == '':
         url = DEFAULT_URL
     else:
         url = resource
 
+    # TO DO: check if URL had been redirected, not available or other error code. For example:
+    if url in REDIRECTION_DICTIONARY:
+        # TO DO: send 302 redirection response
+
     # TO DO: extract requested file tupe from URL (html, jpg etc)
     if filetype == 'html':
-        http_header = "HTTP/1.1 200 OK\r\n"# TO DO: generate proper HTTP header
+        http_header = # TO DO: generate proper HTTP header
+    elif filetype == 'jpg':
+        http_header = # TO DO: generate proper jpg header
     # TO DO: handle all other headers
 
     # TO DO: read the data from the file
-    data = get_file_data(url)
+    data = get_file_data(filename)
     http_response = http_header + data
     client_socket.send(http_response.encode())
-    
+    """
 
 def validate_http_request(request):
     """
     Check if request is a valid HTTP request and returns TRUE / FALSE and the requested URL
     """
-    is_http_get = False
-    if(request[0:3] == "GET" and "HTTP/1.1\r\n" in request):
-        is_http_get = True
-        scrapped_url = request[4:request.find("HTTP/1.1\r\n")]
-    # TO DO: write function
-    return is_http_get, "Error in protocol detection."
+    # Length validation of request.
+    if(len(request) < 4):
+        print("request length too short")
+        return False
+    if(request[0:4] == "GET "):
+        if(r"HTTP/1.1\r\n" in request):
+            current_path = "./webroot/" + request[4:request.index(r" HTTP")]
+            return os.path.isfile(current_path), current_path 
+    else:
+        return False
+    return
 
 def handle_client(client_socket):
     """ Handles client requests: verifies client's requests are legal HTTP, calls function to handle the requests """
     print('Client connected')
-    client_socket.send(FIXED_RESPONSE.encode())
-    
     while True:
         # TO DO: insert code that receives client request
         # ...
@@ -65,11 +82,11 @@ def handle_client(client_socket):
         if valid_http:
             print('Got a valid HTTP request')
             handle_client_request(resource, client_socket)
+            client_socket.send(FIXED_RESPONSE.encode())
             break
         else:
             print('Error: Not a valid HTTP request')
             break
-    
     print('Closing connection')
     client_socket.close()
 
