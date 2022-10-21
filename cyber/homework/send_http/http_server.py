@@ -22,6 +22,7 @@ def get_file_data(filename):
         # reading the file data.
         file_pointer = open(filename, "r", encoding='utf-8')
         file_data = file_pointer.read()
+        file_pointer.close()
     except FileNotFoundError:
         print("file not found")
         sys.exit(0)
