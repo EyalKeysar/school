@@ -6,8 +6,6 @@ namespace ConsoleApp1
     {
         static void Main(string[] args)
         {
-            int[] arr = { 0, 1, 3, 2, 0 };
-            Console.WriteLine(Q1(arr));
         }
 
 
