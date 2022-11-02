@@ -1,0 +1,13 @@
+C:\Networks\school\comsci\homework\Pixel\ThePixelTask\ThePixelTask\obj\Debug\netcoreapp3.1\ThePixelTask.csprojAssemblyReference.cache
+C:\Networks\school\comsci\homework\Pixel\ThePixelTask\ThePixelTask\obj\Debug\netcoreapp3.1\ThePixelTask.AssemblyInfoInputs.cache
+C:\Networks\school\comsci\homework\Pixel\ThePixelTask\ThePixelTask\obj\Debug\netcoreapp3.1\ThePixelTask.AssemblyInfo.cs
+C:\Networks\school\comsci\homework\Pixel\ThePixelTask\ThePixelTask\obj\Debug\netcoreapp3.1\ThePixelTask.csproj.CoreCompileInputs.cache
+C:\Networks\school\comsci\homework\Pixel\ThePixelTask\ThePixelTask\bin\Debug\netcoreapp3.1\ThePixelTask.exe
+C:\Networks\school\comsci\homework\Pixel\ThePixelTask\ThePixelTask\bin\Debug\netcoreapp3.1\ThePixelTask.deps.json
+C:\Networks\school\comsci\homework\Pixel\ThePixelTask\ThePixelTask\bin\Debug\netcoreapp3.1\ThePixelTask.runtimeconfig.json
+C:\Networks\school\comsci\homework\Pixel\ThePixelTask\ThePixelTask\bin\Debug\netcoreapp3.1\ThePixelTask.runtimeconfig.dev.json
+C:\Networks\school\comsci\homework\Pixel\ThePixelTask\ThePixelTask\bin\Debug\netcoreapp3.1\ThePixelTask.dll
+C:\Networks\school\comsci\homework\Pixel\ThePixelTask\ThePixelTask\bin\Debug\netcoreapp3.1\ThePixelTask.pdb
+C:\Networks\school\comsci\homework\Pixel\ThePixelTask\ThePixelTask\obj\Debug\netcoreapp3.1\ThePixelTask.dll
+C:\Networks\school\comsci\homework\Pixel\ThePixelTask\ThePixelTask\obj\Debug\netcoreapp3.1\ThePixelTask.pdb
+C:\Networks\school\comsci\homework\Pixel\ThePixelTask\ThePixelTask\obj\Debug\netcoreapp3.1\ThePixelTask.genruntimeconfig.cache
