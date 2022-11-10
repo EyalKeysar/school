@@ -1,7 +1,7 @@
 import socket
 import threading
 server_socket = socket.socket()
-server_socket.bind(("192.168.152.1", 8820))
+server_socket.bind(("0.0.0.0", 8820))
 print("Server is up and running")
 server_is_active = True
 
@@ -10,19 +10,11 @@ while(server_is_active):
 
     (client_socket, client_address) = server_socket.accept()
     print("Client connected")
-    data = client_socket.recv(1024).decode()
+    data = client_socket.recv(1).decode()
     print("Client sent: " + data)
-    reply = "Hello " + data
-    client_socket.send(reply.encode())
+    data = client_socket.recv(1).decode()
+    print("Client sent: " + data)
     print("end connection with: ", client_address[0])
-
-def HandleClient(client_socket, client_address):
-    print("-->) Client connected: ", client_address[0])
-
-    data = client_socket.recv(1024).decode()
-    print("Client sent: " + data)
-    reply = "Hello " + data
-    client_socket.send(reply.encode())
 
     print("<--) Client disconnected: ", client_address[0])
 

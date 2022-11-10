@@ -4,19 +4,20 @@
 
 import socket
 import protocol
+import pyautogui
 
+IP = "0.0.0.0"
+PHOTO_PATH = r"C:\Networks\school\cyber\homework\@2.7\scshot.png" # The path + filename where the screenshot at the server should be saved
 
-IP = ????
-PHOTO_PATH = ???? # The path + filename where the screenshot at the server should be saved
-
+def take_cur_screen():
+    myScreenshot = pyautogui.screenshot()
+    myScreenshot.save(PHOTO_PATH)
 
 def check_client_request(cmd):
     """
     Break cmd to command and parameters
     Check if the command and params are good.
-
     For example, the filename to be copied actually exists
-
     Returns:
         valid: True/False
         command: The requested cmd (ex. "DIR")
@@ -81,15 +82,12 @@ def main():
                 # prepare proper error to client
                 response = 'Bad command or parameters'
                 # send to client
-
         else:
             # prepare proper error to client
             response = 'Packet not according to protocol'
             #send to client
-
             # Attempt to clean garbage from socket
             client_socket.recv(1024)
-
     # close sockets
     print("Closing connection")
 
