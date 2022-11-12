@@ -199,7 +199,7 @@ namespace ConsoleApp1
         }
         public static int Q10(Queue<int> q1)
         {
-            int smallestNum = int.MinValue;
+            int smallestNum = int.MaxValue;
             Queue<int> q2 = new Queue<int>();
             while (!q1.IsEmpty())
             {

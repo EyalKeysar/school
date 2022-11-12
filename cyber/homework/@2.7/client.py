@@ -7,7 +7,7 @@ import zipfile
 import protocol
 
 IP = "127.0.0.8"
-SAVED_PHOTO_LOCATION = f"C:\Networks\school\cyber\homework\@2.7\gotscshoot.png" # The path + filename where the copy of the screenshot at the client should be saved
+SAVED_PHOTO_LOCATION = r"C:\Networks\school\cyber\homework\@2.7\gotscshoot.png" # The path + filename where the copy of the screenshot at the client should be saved
 
 VALID_CMD = ["DIR", "DELETE", "COPY", "EXECUTE"]
 
@@ -18,7 +18,7 @@ def handle_server_response(my_socket, cmd):
     Note- special attention should be given to SEND_PHOTO as it requires and extra receive
     """
     # (8) treat all responses except SEND_PHOTO
-    if(CMD in VALID_CMD):
+    if(cmd in VALID_CMD):
         bol, data = protocol.get_msg(my_socket)
         if(bol == True):
             print("data recived:\n" + data)
