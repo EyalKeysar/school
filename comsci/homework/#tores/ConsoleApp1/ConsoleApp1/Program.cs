@@ -57,8 +57,15 @@ namespace ConsoleApp1
             Console.WriteLine(Q14(q2qu, 2));
             Console.WriteLine(Q14(q2qu, 8));
             //Q15
-            Queue<int> q15qu = new Queue<int>;
-            q15qu.Insert(4); q15qu.Insert(6); q15qu.Insert(9); q15qu.Insert(12);        
+            Queue<int> q15qu = new Queue<int>();
+            q15qu.Insert(4); q15qu.Insert(6); q15qu.Insert(9); q15qu.Insert(12);
+            Q1(q15qu);
+
+            //Q16
+            Q16(q15qu, 7);
+            Q1(q15qu);
+
+            Q1(Q21(q2qu, q15qu));
 
             Console.Read();
         }
@@ -275,21 +282,64 @@ namespace ConsoleApp1
             }
             return res;
         }
-        public static int Q16(Queue<int> q1, int num)
+        public static void Q16(Queue<int> q1, int num)
         {
+            bool alreadyPlaced = false;
             Queue<int> q2 = new Queue<int>();
             while (!q1.IsEmpty())
             {
                 int curVal = q1.Remove();
+                if (curVal > num && alreadyPlaced == false)
+                {
+                    q2.Insert(num);
+                    alreadyPlaced = true;
+                }
                 q2.Insert(curVal);
             }
             while (!q2.IsEmpty())
             {
                 q1.Insert(q2.Remove());
             }
-            return lastNum;
         }
+        public static Queue<int> Q18(Queue<int> q1, Queue<int> q2)
+        {
+            if(Q11(q1) > Q11(q2)) { return q1; } else { return q2; }
+        }
+        public static int Q19(Queue<int> q1, Queue<int> q2)
+        {
+            return Math.Min(Q10(q1), Q10(q2));  
+        }
+        public static Queue<int> Q20(Queue<int> q1, Queue<int> q2)
+        {
+            if(Q9(q1) > Q9(q2)) { return q1; } else { return q2; }
+        }
+        public static Queue<int> Q21(Queue<int> q1, Queue<int> q2)
+        {
+            Queue<int> q3 = new Queue<int>();
+            Queue<int> q4 = new Queue<int>();
+            while (!q1.IsEmpty())
+            {
+                int curVal = q1.Remove();
+                q4.Insert(curVal);
+                q3.Insert(curVal);
+            }
+            while (!q3.IsEmpty())
+            {
+                q1.Insert(q3.Remove());
+            }
 
+            while (!q2.IsEmpty())
+            {
+                int curVal = q2.Remove();
+                q4.Insert(curVal);
+                q3.Insert(curVal);
+            }
+            while (!q3.IsEmpty())
+            {
+                q2.Insert(q3.Remove());
+            }
+            return q4;
+        }
 
 
     }
