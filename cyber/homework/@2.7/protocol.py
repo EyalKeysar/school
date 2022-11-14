@@ -41,7 +41,7 @@ def create_msg(data):
     Create a valid protocol message, with length field
     """
     if(len(data) < 10000):
-        msg = len(data) + "#" + data
+        msg = str(len(data)) + "#" + str(data)
     return msg.encode()
 
 

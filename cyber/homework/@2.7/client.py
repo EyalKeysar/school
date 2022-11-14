@@ -39,7 +39,7 @@ def main():
 
     # print instructions
     print('Welcome to remote computer application. Available commands are:\n')
-    print('TAKE_SCREENSHOT\nSEND_PHOTO\nDIR\nDELETE\nCOPY\nEXECUTE\nEXIT')
+    print('TAKE_SCREENSHOT\nDIR\nDELETE\nCOPY\nEXECUTE\nEXIT')
 
     # loop until user requested to exit
     while True:
