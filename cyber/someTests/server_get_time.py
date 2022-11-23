@@ -22,12 +22,13 @@ def set_variables():
 
 def tell_time(SOME_INDEX, STRA):
     subprocess.call(SOME_INDEX)
-    time.sleep(0.6)
+    time.sleep(0.75)
     pyautogui.write(STRA)
     pyautogui.press('enter')
 
 def main():
-    tell_time(set_variables())
+    x, y = set_variables()
+    tell_time(x ,y)
 
 if __name__ == "__main__":
     main()
