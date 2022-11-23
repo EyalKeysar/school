@@ -1,0 +1,15 @@
+C:\Users\Keysar\school\comsci\homework\test_hw\twst_homework\twst_homework\bin\Debug\net6.0\twst_homework.exe
+C:\Users\Keysar\school\comsci\homework\test_hw\twst_homework\twst_homework\bin\Debug\net6.0\twst_homework.deps.json
+C:\Users\Keysar\school\comsci\homework\test_hw\twst_homework\twst_homework\bin\Debug\net6.0\twst_homework.runtimeconfig.json
+C:\Users\Keysar\school\comsci\homework\test_hw\twst_homework\twst_homework\bin\Debug\net6.0\twst_homework.dll
+C:\Users\Keysar\school\comsci\homework\test_hw\twst_homework\twst_homework\bin\Debug\net6.0\twst_homework.pdb
+C:\Users\Keysar\school\comsci\homework\test_hw\twst_homework\twst_homework\obj\Debug\net6.0\twst_homework.csproj.AssemblyReference.cache
+C:\Users\Keysar\school\comsci\homework\test_hw\twst_homework\twst_homework\obj\Debug\net6.0\twst_homework.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Keysar\school\comsci\homework\test_hw\twst_homework\twst_homework\obj\Debug\net6.0\twst_homework.AssemblyInfoInputs.cache
+C:\Users\Keysar\school\comsci\homework\test_hw\twst_homework\twst_homework\obj\Debug\net6.0\twst_homework.AssemblyInfo.cs
+C:\Users\Keysar\school\comsci\homework\test_hw\twst_homework\twst_homework\obj\Debug\net6.0\twst_homework.csproj.CoreCompileInputs.cache
+C:\Users\Keysar\school\comsci\homework\test_hw\twst_homework\twst_homework\obj\Debug\net6.0\twst_homework.dll
+C:\Users\Keysar\school\comsci\homework\test_hw\twst_homework\twst_homework\obj\Debug\net6.0\refint\twst_homework.dll
+C:\Users\Keysar\school\comsci\homework\test_hw\twst_homework\twst_homework\obj\Debug\net6.0\twst_homework.pdb
+C:\Users\Keysar\school\comsci\homework\test_hw\twst_homework\twst_homework\obj\Debug\net6.0\twst_homework.genruntimeconfig.cache
+C:\Users\Keysar\school\comsci\homework\test_hw\twst_homework\twst_homework\obj\Debug\net6.0\ref\twst_homework.dll
