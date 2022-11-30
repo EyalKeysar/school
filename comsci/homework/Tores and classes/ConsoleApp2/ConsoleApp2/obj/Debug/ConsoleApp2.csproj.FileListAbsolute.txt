@@ -1,0 +1,9 @@
+C:\Networks\school\comsci\homework\Tores and classes\ConsoleApp2\ConsoleApp2\bin\Debug\ConsoleApp2.exe.config
+C:\Networks\school\comsci\homework\Tores and classes\ConsoleApp2\ConsoleApp2\bin\Debug\ConsoleApp2.exe
+C:\Networks\school\comsci\homework\Tores and classes\ConsoleApp2\ConsoleApp2\bin\Debug\ConsoleApp2.pdb
+C:\Networks\school\comsci\homework\Tores and classes\ConsoleApp2\ConsoleApp2\bin\Debug\Unit4.dll
+C:\Networks\school\comsci\homework\Tores and classes\ConsoleApp2\ConsoleApp2\obj\Debug\ConsoleApp2.csprojAssemblyReference.cache
+C:\Networks\school\comsci\homework\Tores and classes\ConsoleApp2\ConsoleApp2\obj\Debug\ConsoleApp2.csproj.CoreCompileInputs.cache
+C:\Networks\school\comsci\homework\Tores and classes\ConsoleApp2\ConsoleApp2\obj\Debug\ConsoleApp2.csproj.CopyComplete
+C:\Networks\school\comsci\homework\Tores and classes\ConsoleApp2\ConsoleApp2\obj\Debug\ConsoleApp2.exe
+C:\Networks\school\comsci\homework\Tores and classes\ConsoleApp2\ConsoleApp2\obj\Debug\ConsoleApp2.pdb
