@@ -13,22 +13,45 @@ import os
 IP = '0.0.0.0'
 PORT = 80
 SOCKET_TIMEOUT = 0.1
+ROOT = "./webroot"
+HTML_PATH = "./webroot/index.html"
 
 
 
+#Done ---------------------------------------------------------------
 def get_file_data(filename):
     """ Get data from file """
     try:
         # reading the file data.
-        file_pointer = open(filename, "r", encoding='utf-8')
+        if(filename == "/"):
+            file_pointer = open(HTML_PATH, "r", encoding='utf-8')
+        else:
+            file_pointer = open(ROOT + filename, "r", encoding='utf-8')
         file_data = file_pointer.read()
         file_pointer.close()
     except FileNotFoundError:
         print("file not found")
         sys.exit(0)
     return file_data
+# --------------------------------------------------------------------
+
+def validate_http_request(request):
+    """
+    Check if request is a valid HTTP request and returns TRUE / FALSE and the requested URL
+    """
+    # Length validation of request.
+    if(request[0:4] == "GET "):
+        if(r"HTTP/1.1" in request):
+            current_path = "./webroot" + request[4:request.index(r" HTTP")]
+            return True, current_path.replace('/', '\\')
+        else:
+            return False, ""
+    else:
+        return False, ""
 
 
+
+#ToDo :
 def handle_client_request(resource, client_socket):
     """ Check the required resource, generate proper HTTP response and send to client"""
     # TO DO : add code that given a resource (URL and parameters) generates the proper response
@@ -42,7 +65,7 @@ def handle_client_request(resource, client_socket):
     if url in REDIRECTION_DICTIONARY:
         # TO DO: send 302 redirection response
 
-    # TO DO: extract requested file tupe from URL (html, jpg etc)
+    # TO DO: extract requested file type from URL (html, jpg etc)
     if filetype == 'html':
         http_header = # TO DO: generate proper HTTP header
     elif filetype == 'jpg':
@@ -54,27 +77,12 @@ def handle_client_request(resource, client_socket):
     http_response = http_header + data
     client_socket.send(http_response.encode())
 
-def validate_http_request(request):
-    """
-    Check if request is a valid HTTP request and returns TRUE / FALSE and the requested URL
-    """
-    # Length validation of request.
-    if(len(request) < 4):
-        print("request length too short")
-        return False
-    if(request[0:4] == "GET "):
-        if(r"HTTP/1.1\r\n" in request):
-            current_path = "./webroot/" + request[4:request.index(r" HTTP")]
-            return True, current_path
-    else:
-        return False
-    return
-
 def handle_client(client_socket):
     """ Handles client requests: verifies client's requests are legal HTTP, calls function to handle the requests """
     print('Client connected')
     while True:
         # TO DO: insert code that receives client request
+        client_request = client_socket.recv(1024).decode()
         # ...
         
         valid_http, resource = validate_http_request(client_request)
@@ -89,7 +97,7 @@ def handle_client(client_socket):
     print('Closing connection')
     client_socket.close()
 
-
+#Done -----------------------------------------------------------------------------------------------
 def main():
     # Open a socket and loop forever while waiting for clients
     server_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
@@ -100,8 +108,11 @@ def main():
     while True:
         client_socket, client_address = server_socket.accept()
         print('New connection received')
+        client_request = client_socket.recv(1024).decode()
+        boole, strinh = validate_http_request(client_request)
+        print("bool = " + str(boole) + "\nstring " + strinh)
         client_socket.settimeout(SOCKET_TIMEOUT)
-        handle_client(client_socket)
+        #handle_client(client_socket)
 
 
 if __name__ == "__main__":
