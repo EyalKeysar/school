@@ -12,7 +12,7 @@ import os
 # TO DO: set constants
 IP = '0.0.0.0'
 PORT = 80
-SOCKET_TIMEOUT = 5
+SOCKET_TIMEOUT = 100
 REDIRECTION_DICTIONARY = {'/source.html':'http://webroot/imgs/abstract.jpg'}
 ROOT = "./webroot"
 HTML_PATH = "./webroot/index.html"
@@ -25,7 +25,7 @@ def get_file_data(filename):
     try:
         file_pointer = None
         # reading the file data.
-        if(filename == "/"):
+        if(filename in {"", " ", "/", "//"}):
             file_pointer = open(HTML_PATH, "r", encoding = 'unicode_escape')
         else:
             for root, dirs, files in os.walk(r'C:\Networks\school\cyber\homework\send_http\webroot'):
@@ -74,10 +74,15 @@ def handle_client_request(resource, client_socket):
 
     # TO DO: extract requested file type from URL (html, jpg etc)
     filetype = resource.split('.')[-1]
-    if filetype == 'html':
+    if filetype == 'html' or resource == "/":
         http_header += "Content-Type: text/html\r\n"# TO DO: generate proper HTTP header
     elif filetype == 'jpg':
         http_header += "Content-Type: image/jpg\r\n"# TO DO: generate proper jpg header
+    elif filetype == 'ico':
+         http_header += 'Content-Type: image/vnd.microsoft.icon\r\n'
+    else:
+        print("file type error: " + resource.split('.')[-1])
+        print(resource)
     # TO DO: handle all other headers
 
 
@@ -95,22 +100,24 @@ def handle_client_request(resource, client_socket):
 
 
 def handle_client(client_socket):
-    print("4")
     """ Handles client requests: verifies client's requests are legal HTTP, calls function to handle the requests """
     print('Client connected')
     while True:
         # TO DO: insert code that receives client request
-        client_request = client_socket.recv(1024).decode()
-        print(client_request)
-        # ...
-        valid_http, resource = validate_http_request(client_request)
-        if valid_http:
-            print('Got a valid HTTP request')
-            handle_client_request(resource, client_socket)
-            break
+        client_request = client_socket.recv(1024)
+        client_request = client_request.decode()
+        if(client_request != ""):
+            print("requested\n" + client_request)
+            # ...
+            valid_http, resource = validate_http_request(client_request)
+            if valid_http:
+                handle_client_request(resource, client_socket)
+                print("handeled")
+            else:
+                print('Error: Not a valid HTTP request :' + resource)
+                break
         else:
-            print('Error: Not a valid HTTP request')
-            break
+            print(" - ")
     print('Closing connection')
     client_socket.close()
 
@@ -125,7 +132,7 @@ def main():
     while True:
         client_socket, client_address = server_socket.accept()
         print('New connection received')
-        #client_socket.settimeout(SOCKET_TIMEOUT)
+        client_socket.settimeout(SOCKET_TIMEOUT)
         handle_client(client_socket)
 
 

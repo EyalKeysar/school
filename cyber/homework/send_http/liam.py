@@ -1,5 +1,3 @@
-HTTP SERVER
-
 # HTTP Server Shell
 # Author: Barak Gonen
 # Purpose: Provide a basis for Ex. 4.4
@@ -81,7 +79,8 @@ def handle_client_request(resource, client_socket):
     length = len(response_content)
     header = 'content-length:' + str(length) + '\r\n\r\n'
     http_response = response_line1 + header + response_content
-    client_socket.send(http_response)
+    print("SENT:\n" + http_response)
+    client_socket.send(http_response.encode())
 
 
 def validate_http_request(request):
@@ -91,11 +90,13 @@ def validate_http_request(request):
     request_line1 = request[:request.find('\n')]
     parsed_request = request_line1.split()
     if len(parsed_request) != 3:
+        print("nonvalid (< 3): " + request)
         return False, ''
     request_type = parsed_request[FIRST_ELEMENT]
     request_url = parsed_request[SECOND_ELEMENT]
     request_protocol = parsed_request[THIRD_ELEMENT]
     if request_type != 'GET' or request_protocol != 'HTTP/1.1':
+        print("nonvalid: " + request)
         return False, ''
     return True, request_url
 
