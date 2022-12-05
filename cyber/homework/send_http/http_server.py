@@ -12,8 +12,7 @@ import os
 # TO DO: set constants
 IP = '0.0.0.0'
 PORT = 80
-SOCKET_TIMEOUT = 100
-REDIRECTION_DICTIONARY = {'/source.html':'http://webroot/imgs/abstract.jpg'}
+SOCKET_TIMEOUT = 5
 ROOT = "./webroot"
 HTML_PATH = "./webroot/index.html"
 
@@ -47,51 +46,55 @@ def validate_http_request(request):
     """
     Check if request is a valid HTTP request and returns TRUE / FALSE and the requested URL
     """
+    if(request == ""):
+        return False, ""
     # Length validation of request.
     if(request[0:4] == "GET "):
         if(r"HTTP/1.1" in request):
             current_path = request[4:request.index(r" HTTP")] 
             return True, current_path
-        
         else:
             return False, ""
     else:
         return False, ""
 
-
-
 #ToDo :
 def handle_client_request(resource, client_socket):
     """ Check the required resource, generate proper HTTP response and send to client"""
     # TO DO : add code that given a resource (URL and parameters) generates the proper response
+    found = False
+    for root, dirs, files in os.walk(r'C:\Networks\school\cyber\homework\send_http\webroot'):
+        for name in files:
+            if name == resource:
+                found = True
 
     # TO DO: check if URL had been redirected, not available or other error code. For example:
-    if resource in REDIRECTION_DICTIONARY:
-        # TO DO: send 302 redirection response
-        http_header = 'HTTP/1.1 302 Found\r\n'
-    else:
+    if(found):
         http_header = 'HTTP/1.1 200 OK\r\n'
+    else:
+        http_header = "HTTP/1.1 404 Not Found\r\n"
 
     # TO DO: extract requested file type from URL (html, jpg etc)
     filetype = resource.split('.')[-1]
+    print("res = " + resource)
     if filetype == 'html' or resource == "/":
         http_header += "Content-Type: text/html\r\n"# TO DO: generate proper HTTP header
     elif filetype == 'jpg':
         http_header += "Content-Type: image/jpg\r\n"# TO DO: generate proper jpg header
+        print("sent jpg")
     elif filetype == 'ico':
-         http_header += 'Content-Type: image/vnd.microsoft.icon\r\n'
+        http_header += 'Content-Type: image/vnd.microsoft.icon\r\n'
     else:
         print("file type error: " + resource.split('.')[-1])
         print(resource)
     # TO DO: handle all other headers
-
 
     data = get_file_data(resource.replace('/', ''))
     if(data != None):
         length = len(data)
     else:
         length = 0
-    http_header += 'content-length:' + str(length) + '\r\n\r\n'
+    http_header += 'Content-Length: ' + len(data)  + '\r\n'
     if(data != None):
         http_response = http_header + data
     else:
@@ -105,19 +108,13 @@ def handle_client(client_socket):
     while True:
         # TO DO: insert code that receives client request
         client_request = client_socket.recv(1024)
-        client_request = client_request.decode()
-        if(client_request != ""):
-            print("requested\n" + client_request)
-            # ...
-            valid_http, resource = validate_http_request(client_request)
-            if valid_http:
-                handle_client_request(resource, client_socket)
-                print("handeled")
-            else:
-                print('Error: Not a valid HTTP request :' + resource)
-                break
+        valid_http, resource = validate_http_request(client_request)
+        if(valid_http or resource == ""):
+            handle_client_request(resource, client_socket)
+            print("handeled")
         else:
-            print(" - ")
+            print('Error: Not a valid HTTP request :' + resource)
+            break
     print('Closing connection')
     client_socket.close()
 
