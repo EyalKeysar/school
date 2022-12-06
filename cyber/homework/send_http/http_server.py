@@ -63,22 +63,24 @@ def handle_client_request(resource, client_socket):
     """ Check the required resource, generate proper HTTP response and send to client"""
     # TO DO : add code that given a resource (URL and parameters) generates the proper response
     found = False
-    for root, dirs, files in os.walk(r'C:\Networks\school\cyber\homework\send_http\webroot'):
-        for name in files:
-            if name == resource:
-                found = True
-
+    if(not resource in {"", " ", "/"}):
+        for root, dirs, files in os.walk(r'C:\Networks\school\cyber\homework\send_http\webroot'):
+            for name in files:
+                if name == resource:
+                    found = True
+    else:
+        found = True
     # TO DO: check if URL had been redirected, not available or other error code. For example:
     if(found):
         http_header = 'HTTP/1.1 200 OK\r\n'
     else:
+        print("404 res = " + resource)
         http_header = "HTTP/1.1 404 Not Found\r\n"
 
     # TO DO: extract requested file type from URL (html, jpg etc)
     filetype = resource.split('.')[-1]
-    print("res = " + resource)
-    if filetype == 'html' or resource == "/":
-        http_header += "Content-Type: text/html\r\n"# TO DO: generate proper HTTP header
+    if filetype == 'html' or resource in {"", " ", "/"}:
+        http_header += "Content-Type: text/html; charset=utf-8\r\n"# TO DO: generate proper HTTP header
     elif filetype == 'jpg':
         http_header += "Content-Type: image/jpg\r\n"# TO DO: generate proper jpg header
         print("sent jpg")
@@ -86,20 +88,22 @@ def handle_client_request(resource, client_socket):
         http_header += 'Content-Type: image/vnd.microsoft.icon\r\n'
     else:
         print("file type error: " + resource.split('.')[-1])
-        print(resource)
     # TO DO: handle all other headers
+    
 
     data = get_file_data(resource.replace('/', ''))
     if(data != None):
         length = len(data)
     else:
         length = 0
-    http_header += 'Content-Length: ' + len(data)  + '\r\n'
+    http_header += 'Content-Length: ' + str(len(data))  + '\r\n\r\n'
     if(data != None):
         http_response = http_header + data
     else:
         http_response = http_header
+    print("sent")
     client_socket.send(http_response.encode())
+    return
 
 
 def handle_client(client_socket):
@@ -125,13 +129,11 @@ def main():
     server_socket.bind((IP, PORT))
     server_socket.listen()
     print("Listening for connections on port {}".format(PORT))
-
     while True:
         client_socket, client_address = server_socket.accept()
         print('New connection received')
         client_socket.settimeout(SOCKET_TIMEOUT)
         handle_client(client_socket)
-
 
 if __name__ == "__main__":
     # Call the main handler function
