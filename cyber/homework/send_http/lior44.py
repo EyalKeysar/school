@@ -2,12 +2,12 @@ import socket
 import os
 
 
-IP = '127.0.0.1'
+IP = '127.0.1.1'
 PORT = 80
 SOCKET_TIMEOUT = 0.1
 
-ROOT_FOLDER = 'C:\\Users\\Lior\\Desktop\\Cyber\\webroot'
-DEFAULT_FILE = '\\index.html'
+ROOT_FOLDER = './webroot'
+DEFAULT_FILE = './webroot/index.html'
 USABLE_REQUESTS = ['GET']
 CALCULATE_NEXT = '/calculate-next'
 CALCULATE_AREA = '/calculate-area'
