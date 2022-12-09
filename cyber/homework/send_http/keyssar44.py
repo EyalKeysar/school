@@ -11,7 +11,7 @@ import os
 import cv2
 # TO DO: set constants
 IP = '0.0.0.0'
-PORT = 80
+PORT = 2230
 SOCKET_TIMEOUT = 5
 ROOT = "./webroot"
 HTML_PATH = "./webroot/index.html"
@@ -33,7 +33,7 @@ def get_file_data(filename):
             file_pointer = HTML_PATH
         #walk in repository searching for the file.
         else:
-            for root, dirs, files in os.walk(r'C:\Networks\school\cyber\homework\send_http\webroot'):
+            for root, dirs, files in os.walk(r'.\webroot'):
                 for name in files:
                     print("name = " + name)
                     print("name to find = " + filename)
@@ -48,10 +48,10 @@ def get_file_data(filename):
                 else:
                     return f.read()
         else:
-            return "404"
+            return "404".encode()
     except FileNotFoundError:
         print("file not found 404 = " + filename)
-        return None
+        return "404".encode()
 # --------------------------------------------------------------------
 
 def validate_http_request(request):
@@ -80,7 +80,7 @@ def handle_client_request(resource, client_socket):
     # TO DO : add code that given a resource (URL and parameters) generates the proper response
     found = False
     if(not resource in {"", " ", "/"}):
-        for root, dirs, files in os.walk(r'C:\Networks\school\cyber\homework\send_http\webroot'):
+        for root, dirs, files in os.walk(r'.\webroot'):
             for name in files:
                 if name == resource.split("/")[-1]:
                     found = True
