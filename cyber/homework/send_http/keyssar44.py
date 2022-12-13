@@ -8,23 +8,36 @@
 import socket
 import sys
 import os
-import cv2
 # TO DO: set constants
 IP = '0.0.0.0'
 PORT = 2230
-SOCKET_TIMEOUT = 5
+SOCKET_TIMEOUT = 99*99
 ROOT = "./webroot"
 HTML_PATH = "./webroot/index.html"
-
+text_file_types = {"js", "css"}
 
 
 #Done ---------------------------------------------------------------
 def get_file_data(filename):
     """ Get data from file """
-    print("getting = " + filename)
-    filetype  = filename.split('.')[-1]
-    print(filetype)
     try:
+        if("calculate-next" in filename):
+            if("num=" in filename):
+                return str((int(filename.split("num=")[-1]) + 1)).encode()
+            
+        elif("calculate-area" in filename):
+            if("width=" in filename and "height=" in filename):
+                filename = filename.split('?')[-1]
+                height = filename.split("&")[0].split("=")[-1]
+                width = filename.split("&")[1].split("=")[-1]
+                return str(int(height)*int(width)/2).encode()
+    except IndexError:
+        print("filename not proprate")
+        return "404".encode()
+
+    
+    try:
+        filetype  = filename.split('.')[-1]
         file_pointer = None
         # reading the file data.
         
@@ -35,10 +48,7 @@ def get_file_data(filename):
         else:
             for root, dirs, files in os.walk(r'.\webroot'):
                 for name in files:
-                    print("name = " + name)
-                    print("name to find = " + filename)
                     if name == filename:
-                        print("ok")
                         file_pointer = os.path.abspath(os.path.join(root, name))
         #if file found
         if(file_pointer != None):
@@ -55,29 +65,16 @@ def get_file_data(filename):
 # --------------------------------------------------------------------
 
 def validate_http_request(request):
-    """
-    Check if request is a valid HTTP request and returns TRUE / FALSE and the requested URL
-    """
-    if(request == ""):
-        print("somelse")
+    if(request == "" or len(request) < 5):
         return False, ""
-    # Length validation of request.
-    if(request[0:4] == "GET "):
-        if(r"HTTP/1.1" in request):
-            current_path = request[4:request.index(r" HTTP")] 
-            print("valid + " + current_path)
-            return True, current_path
-        else:
-            print("nonval " + request)
-            return False, "-"
+    if(request[0:4] == "GET " and r"HTTP/1.1" in request):
+        current_path = request[4:request.index(r" HTTP")]
+        return True, current_path
     else:
-        print("nonval " + request)
         return False, "-"
 
-#ToDo :
 def handle_client_request(resource, client_socket):
     """ Check the required resource, generate proper HTTP response and send to client"""
-    # TO DO : add code that given a resource (URL and parameters) generates the proper response
     found = False
     if(not resource in {"", " ", "/"}):
         for root, dirs, files in os.walk(r'.\webroot'):
@@ -86,27 +83,26 @@ def handle_client_request(resource, client_socket):
                     found = True
     else:
         found = True
-    # TO DO: check if URL had been redirected, not available or other error code. For example:
-    if(found):
+    filename = resource.split("/")[-1].replace('/', '')
+    if(found or "calculate-next" in filename or "calculate-area" in filename):
         http_header = 'HTTP/1.1 200 OK\r\n'
     else:
         print("404 res = " + resource)
         http_header = "HTTP/1.1 404 Not Found\r\n"
-
-    # TO DO: extract requested file type from URL (html, jpg etc)
     filetype = resource.split('.')[-1]
-    if filetype == 'html' or resource in {"", " ", "/"}:
-        http_header += "Content-Type: text/html; charset=utf-8\r\n"# TO DO: generate proper HTTP header
+
+    if("calculate-next" in filename or "calculate-area" in filename):
+        http_header += "Content-Type: text/plain; charset=utf-8\r\n"
+    elif filetype == 'html' or resource in {"", " ", "/"}:
+        http_header += "Content-Type: text/html; charset=utf-8\r\n"
     elif filetype == 'jpg':
-        http_header += "Content-Type: image/jpg\r\n"# TO DO: generate proper jpg header
-        print("sent jpg")
+        http_header += "Content-Type: image/jpg\r\n"
     elif filetype == 'ico':
         http_header += 'Content-Type: image/vnd.microsoft.icon\r\n'
-    elif(filetype == "css"):
-        http_header += 'Content-Type: text/css\r\n'
+    elif(filetype in text_file_types):
+        http_header += 'Content-Type: text/' + filetype + '; charset=utf-8\r\n'
     else:
         print("file type error: " + resource.split('.')[-1])
-    # TO DO: handle all other headers
     
 
     data = get_file_data(resource.split("/")[-1].replace('/', ''))
@@ -119,7 +115,6 @@ def handle_client_request(resource, client_socket):
         http_response = http_header.encode() + data
     else:
         http_response = http_header.encode()
-    print("sent")
     client_socket.send(http_response)
     return
 
@@ -130,13 +125,10 @@ def handle_client(client_socket):
     while True:
         # TO DO: insert code that receives client request
         client_request = client_socket.recv(1024)
-        print("req = " +client_request.decode())
         valid_http, resource = validate_http_request(client_request.decode())
         
         if(valid_http or resource == ""):
-            print("res = " + resource)
             handle_client_request(resource, client_socket)
-            print("handeled")
             break
         else:
             print('Error: Not a valid HTTP request :' + resource)
@@ -144,9 +136,7 @@ def handle_client(client_socket):
     print('Closing connection')
     client_socket.close()
 
-#Done -----------------------------------------------------------------------------------------------
 def main():
-    # Open a socket and loop forever while waiting for clients
     server_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
     server_socket.bind((IP, PORT))
     server_socket.listen()
