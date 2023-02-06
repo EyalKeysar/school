@@ -1,0 +1,15 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2012/06/nuspec.xsd">
+  <metadata>
+    <id>ClassLibrary1</id>
+    <version>1.0.0</version>
+    <authors>ClassLibrary1</authors>
+    <description>Package Description</description>
+    <dependencies>
+      <group targetFramework=".NETCoreApp3.1" />
+    </dependencies>
+  </metadata>
+  <files>
+    <file src="C:\Networks\school\comsci\homework\ToresHilaK\ClassLibrary1\ClassLibrary1\bin\Release\netcoreapp3.1\ClassLibrary1.dll" target="lib\netcoreapp3.1\ClassLibrary1.dll" />
+  </files>
+</package>

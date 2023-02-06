@@ -1,0 +1,10 @@
+C:\Networks\school\comsci\homework\ToresHilaK\ClassLibrary1\ClassLibrary1\bin\Release\netcoreapp3.1\ClassLibrary1.deps.json
+C:\Networks\school\comsci\homework\ToresHilaK\ClassLibrary1\ClassLibrary1\bin\Release\netcoreapp3.1\ClassLibrary1.dll
+C:\Networks\school\comsci\homework\ToresHilaK\ClassLibrary1\ClassLibrary1\bin\Release\netcoreapp3.1\ClassLibrary1.pdb
+C:\Networks\school\comsci\homework\ToresHilaK\ClassLibrary1\ClassLibrary1\obj\Release\netcoreapp3.1\ClassLibrary1.csproj.AssemblyReference.cache
+C:\Networks\school\comsci\homework\ToresHilaK\ClassLibrary1\ClassLibrary1\obj\Release\netcoreapp3.1\ClassLibrary1.GeneratedMSBuildEditorConfig.editorconfig
+C:\Networks\school\comsci\homework\ToresHilaK\ClassLibrary1\ClassLibrary1\obj\Release\netcoreapp3.1\ClassLibrary1.AssemblyInfoInputs.cache
+C:\Networks\school\comsci\homework\ToresHilaK\ClassLibrary1\ClassLibrary1\obj\Release\netcoreapp3.1\ClassLibrary1.AssemblyInfo.cs
+C:\Networks\school\comsci\homework\ToresHilaK\ClassLibrary1\ClassLibrary1\obj\Release\netcoreapp3.1\ClassLibrary1.csproj.CoreCompileInputs.cache
+C:\Networks\school\comsci\homework\ToresHilaK\ClassLibrary1\ClassLibrary1\obj\Release\netcoreapp3.1\ClassLibrary1.dll
+C:\Networks\school\comsci\homework\ToresHilaK\ClassLibrary1\ClassLibrary1\obj\Release\netcoreapp3.1\ClassLibrary1.pdb

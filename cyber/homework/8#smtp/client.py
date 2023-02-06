@@ -5,6 +5,7 @@ MAIL_ADDR = "frusta@gmx.com"
 DATA = "Waka Waka\nWaka Waka"
 PORT = 25
 
+
 def main():
     client_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
     init_sock(client_socket)
