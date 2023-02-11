@@ -1,12 +1,15 @@
-from scapy.layers.dns import DNS, DNSQR
-from scapy.layers.inet import IP, UDP
 from scapy.sendrecv import sr1
-from typing import List
 from scapy.all import *
 
+client_ip = "127.0.0.5"
 
-def sniff_ports(start_port, end_port):
-    filter_string = "udp and (port >= {} and port <= {})".format(start_port, end_port)
-    sniff(filter=filter_string, prn=sniff_callback, store=0)
+def sniff_ports():
+    filter_string = "udp and host {client_ip}"
+    recived_port = sniff(filter=filter_string, count=1)
+    print(recived_port)
 def main():
-    
+    while True:
+        sniff_ports()
+        
+if "__main__" == __name__:
+    main()
