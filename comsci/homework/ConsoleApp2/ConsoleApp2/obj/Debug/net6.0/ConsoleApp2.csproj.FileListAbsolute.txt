@@ -1,0 +1,15 @@
+C:\Networks\school\comsci\homework\ConsoleApp2\ConsoleApp2\obj\Debug\net6.0\ConsoleApp2.csproj.AssemblyReference.cache
+C:\Networks\school\comsci\homework\ConsoleApp2\ConsoleApp2\obj\Debug\net6.0\ConsoleApp2.GeneratedMSBuildEditorConfig.editorconfig
+C:\Networks\school\comsci\homework\ConsoleApp2\ConsoleApp2\obj\Debug\net6.0\ConsoleApp2.AssemblyInfoInputs.cache
+C:\Networks\school\comsci\homework\ConsoleApp2\ConsoleApp2\obj\Debug\net6.0\ConsoleApp2.AssemblyInfo.cs
+C:\Networks\school\comsci\homework\ConsoleApp2\ConsoleApp2\obj\Debug\net6.0\ConsoleApp2.csproj.CoreCompileInputs.cache
+C:\Networks\school\comsci\homework\ConsoleApp2\ConsoleApp2\bin\Debug\net6.0\ConsoleApp2.exe
+C:\Networks\school\comsci\homework\ConsoleApp2\ConsoleApp2\bin\Debug\net6.0\ConsoleApp2.deps.json
+C:\Networks\school\comsci\homework\ConsoleApp2\ConsoleApp2\bin\Debug\net6.0\ConsoleApp2.runtimeconfig.json
+C:\Networks\school\comsci\homework\ConsoleApp2\ConsoleApp2\bin\Debug\net6.0\ConsoleApp2.dll
+C:\Networks\school\comsci\homework\ConsoleApp2\ConsoleApp2\bin\Debug\net6.0\ConsoleApp2.pdb
+C:\Networks\school\comsci\homework\ConsoleApp2\ConsoleApp2\obj\Debug\net6.0\ConsoleApp2.dll
+C:\Networks\school\comsci\homework\ConsoleApp2\ConsoleApp2\obj\Debug\net6.0\refint\ConsoleApp2.dll
+C:\Networks\school\comsci\homework\ConsoleApp2\ConsoleApp2\obj\Debug\net6.0\ConsoleApp2.pdb
+C:\Networks\school\comsci\homework\ConsoleApp2\ConsoleApp2\obj\Debug\net6.0\ConsoleApp2.genruntimeconfig.cache
+C:\Networks\school\comsci\homework\ConsoleApp2\ConsoleApp2\obj\Debug\net6.0\ref\ConsoleApp2.dll
